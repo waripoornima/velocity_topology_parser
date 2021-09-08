@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?><tbml xmlns="http://www.teslaalliance.org/trs/tbml/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.teslaalliance.org/trs/tbml/1.0/tbml-core.xsd">
+<header>
+<name>FDK-CFv-FWv-Testing</name>
+<description>FW demo using CyberFlood virtual and PaloAlto virtual.
+CF Controller: 10.32.10.72
+
+CF Test Names:
+1. Mix Traffic to FW without Attack CP 2
+2. Mix Traffic to FW with Attack CP2
+
+CF Controller:  demo@spirent.com/spirent
+
+PaloAltoFW:  admin/Spirent123!</description>
+<property name="rmGuid">5f1e2c48-cf7b-4b02-9e2e-e60882278e03</property>
+<property name="dateModified">2020-08-17T09:41:07.041-07:00</property>
+<property name="creationTool" vendor="com.fnfr">com.fnfr.itest.topology.tbml.diagram</property>
+<property name="creationToolVersion" vendor="com.fnfr">8.2.0.202003130611</property>
+</header>
+<illustration>
+<layer>
+<note color="YELLOW" groupId="null" height="182" id="ifd317e94-499d-4f91-9f85-4058fb907db4" width="374" x="404" y="-64">
+<content>FW testing topology
+Use the automation test:
+fw_throughput_benchmark.fftc
+
+OR use runlist: 
+FDK-CFv-firewall-performance.vrl
+
+CF Controller
+mgmt: 10.32.10.72 (demo@spirent.com/spirent)
+
+PaloAlto virtual
+mgmt: 10.32.10.104 (admin/Spirent123!)</content>
+<subject>Note</subject>
+</note>
+</layer>
+</illustration>
+<body>
+<resources>
+<resource guid="8c1d057d-1df1-46fb-aea4-a6320b603b66" id="i7756d9c8-e5cb-40c2-9430-e4562058076e" shared="true" type="device">
+<boundary height="100" width="100" x="341" y="138"/>
+<property isimportant="false" name="name">FW-1</property>
+<property isimportant="false" name="inventoryName">-PAVM-1FDK</property>
+<property isimportant="false" name="description">Palo Alto Virtual Firewall</property>
+<property isimportant="false" name="iconURI">ilo://api/0/resource/icon?id=8c1d057d-1df1-46fb-aea4-a6320b603b66</property>
+<property isimportant="false" name="reservationTime">IMMEDIATE</property>
+<property isimportant="false" name="ili_shape">RECTANGLE</property>
+<property name="ilo_iconId">9e17aef9-de58-4bf8-a995-247dbc7742e0</property>
+<extensions type="com.fnfr.itest.session" xs:namespace="com.fnfr.itest.session">
+<session baseSessionProfile="" name="ssh1" provider="com.fnfr">
+<sessionProfile version="8.2.1.0">
+<baseApplication>com.fnfr.svt.applications.ssh</baseApplication>
+<sessionProperties type="com.fnfr.svt.applications.ssh.documents.SSHProperties">
+<ipAddress inherit="false">[velocity('property', 'ipAddress')]</ipAddress>
+<user inherit="false">[velocity('property', 'username')]</user>
+<password inherit="false">d7VqHMc27Pk+julgJmPJeNcEBTZeqyAZrj5XfkBbsDixXFZkG8TXLQ==</password>
+</sessionProperties>
+<baseProfile>project://di_palo_alto/session_profiles/SSH_ref_session_profile_paloalto.ffsp</baseProfile>
+<language>Python</language>
+</sessionProfile>
+<id>cb49a978-0992-44ac-98d4-e96a5443213c</id>
+<isInherited>false</isInherited>
+<isDisabled>false</isDisabled>
+</session>
+</extensions>
+<resource guid="320cca4a-0bbe-4c47-8615-3537e358617c" id="ie5b31d95-60a0-4f13-9219-8911532fbe7a" type="port">
+<property isimportant="false" name="name">ethernet1/1</property>
+<property isimportant="false" name="inventoryName">ethernet1/1</property>
+<property isimportant="false" name="description"/>
+<property isimportant="false" name="connectivity">connected</property>
+
+<propertyCollection name="System Identification">
+<property id="d95708b2-9bbb-4992-82e5-590a8a1a030e" name="portNumber" type="text" valuelabel="">ethernet1/1</property>
+<property id="f13c4d46-e663-3156-63e4-1b2fa0f52e6b" name="Port Type" type="text" valuelabel="">Ethernet</property>
+<property id="239adac7-dc9d-ad53-0414-113bff53a9e2" name="Port Speed" type="integer" valuelabel="">1000</property>
+<property id="7331a7b7-7194-cc60-15a2-c096dc0e599d" name="Port Use" type="text" valuelabel=""/>
+<property id="ab3c19c1-913e-7b09-1e3c-11169ecd9ac8" name="BadPortState" type="integer" valuelabel="">0</property>
+</propertyCollection>
+</resource>
+<resource guid="9812b76c-074b-4e55-901b-6b9f5d39793d" id="ic341693e-8355-4d3f-89e3-7c2385a6ac7f" type="port">
+<property isimportant="false" name="name">ethernet1/2</property>
+<property isimportant="false" name="inventoryName">ethernet1/2</property>
+<property isimportant="false" name="description"/>
+<property isimportant="false" name="connectivity">connected</property>
+
+<propertyCollection name="System Identification">
+<property id="c39c590a-c14f-48b6-8a45-74f2ff430a43" name="portNumber" type="text" valuelabel="">ethernet1/2</property>
+<property id="4784dd6b-bf4f-002b-440d-1ddfb3d9e76b" name="Port Type" type="text" valuelabel="">Ethernet</property>
+<property id="f8979456-ce4c-98bc-b5b1-9c9b0e6273f2" name="Port Speed" type="integer" valuelabel="">1000</property>
+<property id="25ee4512-f55d-890d-776d-fe4aabf41ca4" name="Port Use" type="text" valuelabel=""/>
+<property id="6a9003f8-e9a6-041b-6e62-6efef9f732e4" name="BadPortState" type="integer" valuelabel="">0</property>
+</propertyCollection>
+</resource>
+
+
+
+
+<propertyCollection name="Location Information">
+<property id="2164f691-9c95-80c4-e90d-9faa16542da8" name="Floor Position" type="text" valuelabel=""/>
+<property id="1d4cf300-c79f-4158-b1b9-59b84b447b4a" name="Facility" type="text" valuelabel="">FDK</property>
+<property id="4021a8be-638e-4a13-a81d-dadba47a79ef" name="Room" type="text" valuelabel=""/>
+</propertyCollection>
+<propertyCollection name="System Identification">
+<property id="0d94f82f-489f-4139-ae0c-13fc7bc13e97" name="ipAddress" type="text" valuelabel="">10.32.10.104</property>
+<property id="eb3384ca-15fb-de64-953f-a420d2b38dee" name="Hostname" type="text" valuelabel=""/>
+<property id="6ee17672-4a93-4207-a20b-7fd303c06036" name="Model" type="text" valuelabel="">PAVM-1</property>
+<property id="c86980b9-edb4-4e9a-b017-9d672517dc09" name="Make" type="text" valuelabel="">PAN</property>
+<property id="d637e112-4167-3f20-83c5-3094577b8dad" name="Serial Number" type="text" valuelabel=""/>
+<property id="5bbd8006-6c7d-d412-5398-3132404fa7e8" name="Description" type="text" valuelabel=""/>
+<property id="7fc70db7-263f-42fa-8cdc-0b41637b4d5d" name="Version" type="text" valuelabel="">9.1.4</property>
+</propertyCollection>
+<propertyCollection name="Decrypted Credentials"/>
+<propertyCollection name="Credentials">
+<property id="e2b568cc-9154-4794-b8ff-3b8329e473f3" name="username" type="text" valuelabel="">admin</property>
+<property id="932ce658-2555-4ea9-a037-3e619ce71b7f" name="password" type="password" valuelabel="">Spirent123!</property>
+</propertyCollection>
+</resource>
+<resource guid="0c4fb0b0-de76-42a6-a916-fd12c3da9ccf" id="i66c2cb55-0d10-4c50-b8ed-d6cd5a52ac27" shared="true" type="device">
+<boundary height="100" width="100" x="703" y="138"/>
+<property isimportant="false" name="name">TG-1</property>
+<property isimportant="false" name="inventoryName">FDK-CF-Virtual-1</property>
+<property isimportant="false" name="description">CF traffic application</property>
+<property isimportant="false" name="iconURI">ilo://api/0/resource/icon?id=0c4fb0b0-de76-42a6-a916-fd12c3da9ccf</property>
+<property isimportant="false" name="reservationTime">IMMEDIATE</property>
+<property isimportant="false" name="ilo_shape">RECTANGLE</property>
+<property name="ilo_iconId">9569ecf8-e911-475b-8320-32a6295067c8</property>
+<resource guid="5a66c67e-8070-4151-ad6c-4cb7f2c94598" id="id792cc4d-89b4-4814-bf25-a3ecd7541d10" type="port">
+<property isimportant="false" name="name">1/1</property>
+<property isimportant="false" name="inventoryName">1/1</property>
+<property isimportant="false" name="description"/>
+<property isimportant="false" name="connectivity">connected</property>
+
+<propertyCollection name="System Identification">
+<property id="986aaeca-3a0c-430f-a698-5bd6b7cb74b4" name="portNumber" type="text" valuelabel="">1/1</property>
+<property id="5991ce03-d21a-6578-f865-77c658e1abfc" name="Port Type" type="text" valuelabel="">Ethernet</property>
+<property id="657fdba1-3891-8c9c-1117-57c58243a036" name="Port Speed" type="integer" valuelabel="">1000</property>
+<property id="7c50b58e-3176-1ef3-adf2-b6384704216e" name="Port Use" type="text" valuelabel=""/>
+<property id="7ef6fc24-2a7d-fc7b-633c-87527756ca16" name="BadPortState" type="integer" valuelabel="">0</property>
+</propertyCollection>
+</resource>
+<resource guid="c739bd9d-6b35-4e48-a500-ec9264c443c1" id="i4b3ddaa3-3e01-41f5-9447-f86046eca2aa" type="port">
+<property isimportant="false" name="name">1/2</property>
+<property isimportant="false" name="inventoryName">1/2</property>
+<property isimportant="false" name="description"/>
+<property isimportant="false" name="connectivity">connected</property>
+
+<propertyCollection name="System Identification">
+<property id="6d8e6832-edfa-4be9-9584-b03288ae339c" name="portNumber" type="text" valuelabel="">1/2</property>
+<property id="1419c154-a087-8893-6ca5-f4de66839f13" name="Port Type" type="text" valuelabel="">Ethernet</property>
+<property id="152dfbd0-acfa-9c31-9e3c-1302bc4337da" name="Port Speed" type="integer" valuelabel="">1000</property>
+<property id="70d33213-5f0d-0258-e328-593745451c27" name="Port Use" type="text" valuelabel=""/>
+<property id="973afba2-f1ba-59cc-688c-f99f76ec215e" name="BadPortState" type="integer" valuelabel="">0</property>
+</propertyCollection>
+</resource>
+
+
+
+
+<propertyCollection name="Decrypted Credentials"/>
+<propertyCollection name="Location Information">
+<property id="c9e1a2f8-85dc-3f42-0fe2-e3509d926b0b" name="Floor Position" type="text" valuelabel=""/>
+<property id="d3d86c94-3c6d-4df0-b327-5a11f385aebf" name="Facility" type="text" valuelabel="">FDK Lab</property>
+<property id="6caf57f7-b902-3d0d-85ae-84cf80c33b00" name="Room" type="text" valuelabel=""/>
+</propertyCollection>
+<propertyCollection name="System Identification">
+<property id="edb6e467-46e9-47e1-96d6-d8d335b963cb" name="ipAddress" type="text" valuelabel="">10.32.10.73</property>
+<property id="df1dd0d4-f6a3-5ec2-8c44-6905172ef095" name="Hostname" type="text" valuelabel=""/>
+<property id="5ef1c2ea-b381-4235-a052-4e506d0c964d" name="Model" type="text" valuelabel="">CFv-1</property>
+<property id="2aac44ee-fad7-451f-ab69-e1d7bbbfc99a" name="Make" type="text" valuelabel="">Spirent</property>
+<property id="e45d3640-c00f-301e-dc04-d1ff5385ad0a" name="Serial Number" type="text" valuelabel=""/>
+<property id="738f9981-1116-7874-f3ec-c07332b653fd" name="Description" type="text" valuelabel=""/>
+<property id="0e97f4a5-8914-8683-e11b-864c29a9c1d3" name="CF-Controller" type="text" valuelabel="">1.1.1.1</property>
+</propertyCollection>
+<propertyCollection name="Credentials">
+<property id="2c3dc333-7c0b-4d89-a9f7-97e6d62e1d36" name="username" type="text" valuelabel="">admin</property>
+<property id="4fb422f3-8b9a-ffeb-b18d-42b3e773333d" name="password" type="password" valuelabel=""/>
+</propertyCollection>
+</resource>
+<resource guid="81d045f2-49a0-4428-b32a-f3a22f7cf3e6" id="i8e9632f9-5cfb-41d7-ada9-efb0311a6537" shared="true" type="device">
+<boundary height="100" width="100" x="703" y="256"/>
+<property isimportant="false" name="name">TG-CTRL-1</property>
+<property isimportant="false" name="inventoryName">FDK-CFController-1</property>
+<property isimportant="false" name="description">This is the CF Controller in Frederick lab used for security demos</property>
+<property isimportant="false" name="iconURI">ilo://api/0/resource/icon?id=81d045f2-49a0-4428-b32a-f3a22f7cf3e6</property>
+<property isimportant="false" name="ilo_shape">RECTANGLE</property>
+<property name="ilo_iconId">f11570bf-a21b-45f5-b7ad-d8c0c326a6d5</property>
+<property isimportant="false" name="reservationTime">IMMEDIATE</property>
+<extensions type="com.fnfr.itest.session" xs:namespace="com.fnfr.itest.session">
+<session baseSessionProfile="" name="cyberflood" provider="com.fnfr">
+<sessionProfile version="8.2.1.0">
+<baseApplication>com.fnfr.itest.applications.spirent.customtool.cyberflood</baseApplication>
+<sessionProperties transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulSessionProperties" type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" url="https://[velocity('property', 'ipAddress')]/api/v2/" url.inherit="false"/>
+<baseProfile>project://di_cyberflood/session_profiles/CyberFlood_ref_session_profile.ffsp</baseProfile>
+<language>Python</language>
+</sessionProfile>
+<id>59a6b006-6484-420d-89ed-77ccc252a307</id>
+<isInherited>false</isInherited>
+<isDisabled>false</isDisabled>
+</session>
+</extensions>
+
+
+
+
+<propertyCollection name="Location Information">
+<property id="2504fc2a-bead-b36a-a74e-586630012db6" name="Floor Position" type="text" valuelabel=""/>
+<property id="a507c31d-1ac6-4075-a49c-1a9d6617e728" name="Facility" type="text" valuelabel="">FDK-LAB</property>
+<property id="e997054e-2b83-8dca-5066-8fb020ca325b" name="Room" type="text" valuelabel=""/>
+</propertyCollection>
+<propertyCollection name="System Identification">
+<property id="7bc18dc1-b94e-427d-802e-a8191b5aa73b" name="ipAddress" type="text" valuelabel="">10.32.10.72</property>
+<property id="84be3c3a-62bb-1901-1ec6-c0207601f7d0" name="Hostname" type="text" valuelabel=""/>
+<property id="7d323f85-12aa-40ce-bc3e-b4022e7137f2" name="Model" type="text" valuelabel="">CyberFlood</property>
+<property id="d430c621-92cc-427c-8408-54e02b47da4f" name="Make" type="text" valuelabel="">Spirent</property>
+<property id="2fef4fb4-4d02-0203-56f2-8f5ea477d33e" name="Serial Number" type="text" valuelabel=""/>
+<property id="c9838ed2-58c5-c53d-686b-c0d1614bacb0" name="Description" type="text" valuelabel=""/>
+</propertyCollection>
+<propertyCollection name="Decrypted Credentials"/>
+<propertyCollection name="Credentials">
+<property id="cfd05d67-aa3e-466c-902b-2c3e0c6b83b0" name="username" type="text" valuelabel="">demo@spirent.com</property>
+<property id="bc40fab4-3820-4aa5-afc1-bfae63c9044e" name="password" type="password" valuelabel="">spirent</property>
+</propertyCollection>
+</resource>
+<resource guid="71b6bd2d-323d-4a21-a245-dccb28477912" id="iab3c95be-dfc1-4ec6-8449-440849b6e96d" shared="true" type="device">
+<boundary height="100" width="100" x="341" y="271"/>
+<property isimportant="false" name="name">FDK-TopologyInfo</property>
+<property isimportant="false" name="inventoryName">FDK-TopologyInfo</property>
+<property isimportant="false" name="description">Details about the topologies in the Frederick Lab</property>
+<property isimportant="false" name="iconURI">ilo://api/0/resource/icon?id=71b6bd2d-323d-4a21-a245-dccb28477912</property>
+<property isimportant="false" name="reservationTime">IMMEDIATE</property>
+<property isimportant="false" name="ilo_shape">RECTANGLE</property>
+<property name="ilo_iconId">18c81285-907b-4990-b2eb-7b2fd9d787de</property>
+
+<propertyCollection name="Document Info">
+<property id="f634c434-f8af-4262-8305-9f364cdbd945" name="Title" type="text" valuelabel="">Details about FDK Topologies</property>
+<property id="8fa3befc-6481-494a-9c00-45550a0e55d7" name="Author" type="text" valuelabel="">Chirag Patel</property>
+<property id="d165f6b0-681b-4108-8984-6e2149705669" name="Details" type="attachment" valuelabel="">6a1de7b3-6807-455e-838a-5b150b8e7f8a</property>
+<property id="a70719e1-fd33-13ec-c7a2-149d7ea6171f" name="Details2" type="attachment" valuelabel=""/>
+<property id="5bb21f82-b9b4-bef5-5d50-ea428e813c9b" name="Details3" type="attachment" valuelabel=""/>
+</propertyCollection>
+</resource>
+</resources>
+<connectivity>
+<link id="iad1c28a5-fadf-40f0-a0aa-fc248e5b25da">
+<property isimportant="false" name="name">Link</property>
+<property isimportant="false" name="type">Ethernet</property>
+<property isimportant="false" name="abstractResourceId"/>
+<property isimportant="false" name="abstractResourceName"/>
+<propertyCollection name="connectionType" order="0">
+<property isimportant="false" name="id">cc0a8586-ab96-08e8-b486-1f8948a0cb84</property>
+<property isimportant="false" name="description"/>
+<property isimportant="false" name="kind">L1</property>
+<property isimportant="false" name="shortcut">Eth</property>
+</propertyCollection>
+<endpoint direction="bidirectional" id="ie5b31d95-60a0-4f13-9219-8911532fbe7a"/>
+<endpoint direction="bidirectional" id="id792cc4d-89b4-4814-bf25-a3ecd7541d10"/>
+<extensions type="com.fnfr.rm.condition"/>
+</link>
+<link id="id794f95e-658e-452c-b199-0dbe7b89a53d">
+<property isimportant="false" name="name">Link 2</property>
+<property isimportant="false" name="type">Ethernet</property>
+<property isimportant="false" name="abstractResourceId"/>
+<property isimportant="false" name="abstractResourceName"/>
+<propertyCollection name="connectionType" order="0">
+<property isimportant="false" name="id">cc0a8586-ab96-08e8-b486-1f8948a0cb84</property>
+<property isimportant="false" name="description"/>
+<property isimportant="false" name="kind">L1</property>
+<property isimportant="false" name="shortcut">Eth</property>
+</propertyCollection>
+<endpoint direction="bidirectional" id="ic341693e-8355-4d3f-89e3-7c2385a6ac7f"/>
+<endpoint direction="bidirectional" id="i4b3ddaa3-3e01-41f5-9447-f86046eca2aa"/>
+<extensions type="com.fnfr.rm.condition"/>
+</link>
+</connectivity>
+</body>
+</tbml>
