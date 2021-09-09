@@ -46,6 +46,13 @@ class VelocityTopologyParser:
     """
 
     def __init__(self, **kwargs):
+        """
+            init definition, it will look for environ variable VELOCITY_PARAM_TMBL_FILE, if not passed kwargs
+        :param kwargs:
+            file_name = 'file_name_with_complete_path'
+            OR
+            string_to_parse = 'string' # you can get it from VelocityReST API
+        """
         # set the name space
         self.ns = {'ns': 'http://www.teslaalliance.org/trs/tbml/1.0'}
 
@@ -56,10 +63,10 @@ class VelocityTopologyParser:
         if not len(kwargs) > 0:
             try:
                 # check for velocity environ
-                tbml_file = os.environ['VELOCITY_PARAM_TMBL_FILE']
+                file_name = os.environ['VELOCITY_PARAM_TMBL_FILE']
 
                 # create element tree
-                self.tree = etree.parse(tbml_file, self.parser)
+                self.tree = etree.parse(file_name, self.parser)
             except KeyError:
                 # error handling
                 raise KeyError('TMBL file name is not passed')
@@ -84,6 +91,11 @@ class VelocityTopologyParser:
 
     # add resource name
     def add_resource(self, abstract_name):
+        """
+
+        :param abstract_name: resource abstract name
+        :return: adds resource abstract name
+        """
         # add the resource name to the list
         self.resource_list.append(abstract_name)
 
@@ -138,7 +150,9 @@ class VelocityTopologyParser:
                 port_list = resource.xpath('ns:resource[@type="port"]', namespaces=self.ns)
                 for port in port_list:
                     port_name = port.xpath('ns:property[@name="name"]', namespaces=self.ns)[0].text
-                    port_obj = resource_obj.add_ports(port_name)
+                    port_number = port.xpath('ns:propertyCollection[@name="System Identification"]'
+                                             '/ns:property[@name="portNumber"]', namespaces=self.ns)[0].text
+                    port_obj = resource_obj.add_ports(port_name, port_number)
 
                     # get the port property and add it to velocity port object
                     port_property_list = port.xpath('ns:property', namespaces=self.ns)
@@ -146,7 +160,7 @@ class VelocityTopologyParser:
                         port_property_name = port_property.attrib['name']
                         port_property_value = port_property.text
                         port_obj.add_property(port_property_name, port_property_value)
-        except:
+        except ValueError:
             raise ValueError('Error getting the value . Check the Object structure ')
         return self
 
@@ -160,11 +174,28 @@ class VelocityResource:
     """
 
     def __init__(self, abstract_name):
-        self.abstarct_name = abstract_name
+        """
+
+        :param abstract_name: resource abstract name
+        """
+        self.abstract_name = abstract_name
+
+        # set port name
         self.port_list = []
+
+        # set pro numbers
+        self.port_numbers = []
+
+        # set property list
         self.property_list = []
 
     def add_property(self, property_name, property_value):
+        """
+
+        :param property_name: resource property Name
+        :param property_value: resource property Value
+        :return: adds resource property Name to object
+        """
         # update resource property
         self.property_list.append(property_name)
 
@@ -172,9 +203,16 @@ class VelocityResource:
         setattr(self, property_name, property_value)
         return getattr(self, property_name)
 
-    def add_ports(self, port_name):
+    def add_ports(self, port_name, port_number):
+        """
+
+        :param port_name: abstract port name
+        :param port_number: abstract port number
+        :return: adds abstract port name to the object
+        """
         # add port to resource port list
         self.port_list.append(port_name)
+        self.port_numbers.append(port_number)
 
         # set port name add it to Velocity Port object
         setattr(self, port_name, VelocityPort(port_name))
@@ -194,18 +232,33 @@ class VelocityPort:
         self.property_list = []
 
     def add_property(self, port_property_name, port_property_value):
+        """
+
+        :param port_property_name: port property name
+        :param port_property_value: port property value
+        :return: adds port property name to the object
+        """
         # add port property to velocity port object
         self.property_list.append(port_property_name)
 
         # set port property name and port property value
         setattr(self, port_property_name, port_property_value)
-        getattr(self, port_property_name)
+        return getattr(self, port_property_name)
 
-if __name__ == "__main__":
+
+def main():
     filename = '/Users/pwari/workspace/velocity_topology_parser/FDK_CFv_FWv_Testing.tbml'
-
     velocity = VelocityTopologyParser(file_name=filename)
     velocity.parse_topology
-    print(velocity.__getattribute__('TG-1').port_list)
-    print(velocity.__getattribute__('FW-1').port_list)
-    print(velocity.__getattribute__('TG-1').__getattribute__('1/1').property_list)
+
+    ip_address = velocity.__getattribute__('TG-1').ipAddress
+    user_name = velocity.__getattribute__('TG-1').username
+
+    tg_port_numbers = velocity.__getattribute__('TG-1').port_numbers
+    fw_port_numbers = velocity.__getattribute__('FW-1').port_numbers
+
+    return tg_port_numbers, fw_port_numbers, ip_address, user_name
+
+
+if __name__ == "__main__":
+    main()
